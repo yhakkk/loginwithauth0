@@ -13,29 +13,14 @@ function App() {
     const handleSubmit = async(values) =>{
       const { name, description } = values
       await axios.post('https://back-programacion-iii.vercel.app/api/task', {name,description})
-
+      
 
     }
 
   return (
-    <>
-      {isAuthenticated ? (
-        <>
-          <Profile />
-          <CreateTask 
-          onCreate= {handleSubmit}
-          
-          />
-          <LogoutButton />
-          
-        </>
-      ) : (
-        <>
-        <LoginButton />
-         </>
-        
-      )}
-    </>
+  <>
+  
+  </>
   );
 }
 
