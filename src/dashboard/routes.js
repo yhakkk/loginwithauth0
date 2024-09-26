@@ -6,6 +6,9 @@ import LogoutButton from '../components/logout';
 import ProfilePage from '../pages/Profile/ProfilePage';
 import ClientPage from '../pages/Client/ClientPage';
 import Layout from "../layouts/Layout";
+import CreateTask from "../components/CreateTask";
+import CrearTaskPage from "../pages/Client/CrearTaskPage";
+import EditTaskPage from "../pages/Client/ClientEditTask";
 
 const rutasAutenticadas = [
     {
@@ -18,11 +21,11 @@ const rutasAutenticadas = [
     },
     {
         url: '/client/crear',
-        component: <ClientPage />
+        component: <CrearTaskPage />
     },
     {
         url: '/client/:id/edit',
-        component: <ClientPage />
+        component: <EditTaskPage />
     },
     {
         url: '/logout',

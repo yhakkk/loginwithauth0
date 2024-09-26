@@ -21,13 +21,6 @@ const ProfilePage = () => {
         
           <Profile />
 
-
-          <Row justify="center" style={{ marginTop: "20px" }}>
-            <Col>
-              <LogoutButton />
-            </Col>
-          </Row>
-
           <Row justify="center" style={{marginTop:"20px"}}>
             <Col>
                 <Button

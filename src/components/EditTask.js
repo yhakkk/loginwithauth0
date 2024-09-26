@@ -1,22 +1,25 @@
-import React from 'react';
-import { Form, Input, Button } from 'antd';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Form, Input, Button,Spin } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
-const CreateTask = ({ onCreate }) => {
-  const [form] = Form.useForm();
-  const navigate = useNavigate()
+const EditTask = ({ onCreate, task }) =>{
+    const [form] = Form.useForm();
+    const navigate = useNavigate()
+    const onFinish = (values) => {
+        if (onCreate) {
+          onCreate(values);
+        
+        }
+    
+        form.resetFields();
+      };
+    
 
-  const onFinish = (values) => {
-    if (onCreate) {
-      onCreate(values);
-      navigate("/client")
+      if (!task) {
+        return <Spin />; 
     }
 
-    form.resetFields();
-  };
-
-  return (
-    <Form
+    return(
+        <Form
       form={form}
       layout="vertical"
       onFinish={onFinish}
@@ -26,11 +29,13 @@ const CreateTask = ({ onCreate }) => {
         justifyContent:"center",
         alignItems:"center",
       }}
+      initialValues={task}
       
     >
       <Form.Item
         label="Titulo"
         name="name"
+        value={task.name}
         style={{
           width:"300px"
         }}
@@ -42,6 +47,7 @@ const CreateTask = ({ onCreate }) => {
       <Form.Item
         label="Descripcion"
         name="description"
+        value={task.description}
         style={{
           width:"300px"
         }}
@@ -52,11 +58,12 @@ const CreateTask = ({ onCreate }) => {
 
       <Form.Item>
         <Button type="primary" htmlType="submit">
-          Crear Task
+          Editar Task
         </Button>
       </Form.Item>
     </Form>
-  );
-};
+    )
+}
 
-export default CreateTask;
+
+export default EditTask;
