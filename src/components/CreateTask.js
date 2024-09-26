@@ -4,12 +4,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 const CreateTask = ({ onCreate }) => {
   const [form] = Form.useForm();
-  const navigate = useNavigate()
+  
 
   const onFinish = (values) => {
     if (onCreate) {
       onCreate(values);
-      navigate("/client")
     }
 
     form.resetFields();

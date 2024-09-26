@@ -2,12 +2,11 @@ import { Col, Row, Table, Space, Button } from "antd";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useLocale } from "antd/es/locale";
+
 
 const ClientPage = () => {
   const [task, setTask] = useState([]);
   const navigate = useNavigate();
-  const location = useLocation()
   const columns = [
     {
       title: "Titulo",
@@ -39,6 +38,11 @@ const ClientPage = () => {
     },
   ];
 
+  
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
   const handleDelete = async (id) => {
     try {
       await axios.delete(
@@ -54,7 +58,7 @@ const ClientPage = () => {
 
   
   const handleOk = () => {
-    navigate("./crear");
+    navigate("/client/crear");
   };
 
   const fetchTasks = async () => {
@@ -67,9 +71,6 @@ const ClientPage = () => {
     }
   };
 
-  useEffect(() => {
-    fetchTasks();
-  }, []);
 
 
 

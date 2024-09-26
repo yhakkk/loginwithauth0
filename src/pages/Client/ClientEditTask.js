@@ -23,9 +23,9 @@ const EditTaskPage = () =>{
             }
     }
 
-    const onFinish = (values) =>{
+    const onFinish = async (values) =>{
         const { name, description } = values;
-        axios.put(`https://back-programacion-iii.vercel.app/api/task/${id}`, {name, description})
+        const response =  await axios.put(`https://back-programacion-iii.vercel.app/api/task/${id}`, {name, description})
         navigate("/client");
     
     }
