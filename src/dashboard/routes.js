@@ -9,6 +9,7 @@ import Layout from "../layouts/Layout";
 import CreateTask from "../components/CreateTask";
 import CrearTaskPage from "../pages/Client/CrearTaskPage";
 import EditTaskPage from "../pages/Client/ClientEditTask";
+import LoginPage from "../pages/Login/LoginPage";
 
 const rutasAutenticadas = [
     {
@@ -35,8 +36,7 @@ const rutasAutenticadas = [
 
 const rutasNoAutenticadas = [
     {
-        url: '/login',
-        component: <LoginButton />
+
     }
 ];
 
