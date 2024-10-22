@@ -47,7 +47,7 @@ const ClientPage = () => {
         console.log("Esta es pagina", page);
         console.log("Este es el límite", limit);
         const response = await axios.get(
-          `http://localhost:4000/api/task?page=${page}&limit=${limit}`
+          `https://back-programacion-iii.vercel.app/api/task?page=${page}&limit=${limit}`
         );
         setTasks(response.data.data); 
         setTotalTasks(response.data.total); 
