@@ -1,20 +1,23 @@
 import { Col, Row, Table, Space, Button } from "antd";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 const ClientPage = () => {
-  const [task, setTask] = useState([]);
+  const [tasks, setTasks] = useState([]); // Tareas actuales
+  const [totalTasks, setTotalTasks] = useState(0); // Total de tareas
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
   const navigate = useNavigate();
+
   const columns = [
     {
       title: "Titulo",
       dataIndex: "name",
-      key: "nombre",
+      key: "name",
     },
     {
-      title: "Description",
+      title: "Descripción",
       dataIndex: "description",
       key: "description",
     },
@@ -29,8 +32,7 @@ const ClientPage = () => {
           >
             Editar
           </Button>
-          <Button variant="outlined" color="danger" onClick={() => 
-            handleDelete(record._id)} >
+          <Button type="danger" onClick={() => handleDelete(record._id)}>
             Borrar
           </Button>
         </Space>
@@ -38,48 +40,65 @@ const ClientPage = () => {
     },
   ];
 
-  
   useEffect(() => {
-    fetchTasks();
-  }, []);
+    const fetchTasks = async (page, limit) => {
+
+      try {
+        console.log("Esta es pagina", page);
+        console.log("Este es el límite", limit);
+        const response = await axios.get(
+          `http://localhost:4000/api/task?page=${page}&limit=${limit}`
+        );
+        setTasks(response.data.data); 
+        setTotalTasks(response.data.total); 
+        console.log(response)
+      } catch (error) {
+        console.error("Error al cargar las tareas", error);
+      }
+    };
+    fetchTasks(currentPage, pageSize);
+    console.log("aaaaaaaaaaaaaaaaaaaaaa", currentPage);
+  }, [currentPage]);
 
   const handleDelete = async (id) => {
     try {
       await axios.delete(
         `https://back-programacion-iii.vercel.app/api/task/${id}`
       );
-      setTask((prevTasks) => prevTasks.filter((task) => task._id !== id));
+      setTasks((prevTasks) => prevTasks.filter((task) => task._id !== id));
     } catch (error) {
-      console.error("Error al borrar las tareas", error);
+      console.error("Error al borrar la tarea", error);
     }
-
   };
 
-
-  
   const handleOk = () => {
     navigate("/client/crear");
   };
 
-  const fetchTasks = async () => {
-    try {
-      const response = await axios.get("https://back-programacion-iii.vercel.app/api/task");
-      setTask(response.data);
-      console.log(response)
-    } catch (error) {
-      console.error("Error al cargar las tareas", error);
-    }
+  const handleTableChange = (pagination) => {
+
+    console.log("bb",pagination)
+    setCurrentPage(pagination); 
+
+   
   };
-
-
-
 
   return (
     <>
       <Row justify="center" style={{ marginTop: "20px" }}>
         <Col style={{ width: "100%", height: "auto" }}>
           <Button onClick={handleOk}>Crear Task</Button>
-          <Table columns={columns} dataSource={task} />
+          <Table
+            columns={columns}
+            dataSource={tasks}
+            rowKey={(record) => record._id}
+            pagination={{
+              current: currentPage,
+              pageSize: pageSize,
+              total: totalTasks,
+              onChange: handleTableChange,
+            }}
+          />
         </Col>
       </Row>
     </>
