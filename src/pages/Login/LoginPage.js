@@ -5,6 +5,7 @@ const LoginPage = () =>{
     return(
         <>
         <LoginButton />
+        <h1>hola</h1>
         </>
     )
 }

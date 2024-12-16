@@ -14,7 +14,7 @@ function App() {
       const { name, description } = values
       await axios.post('https://back-programacion-iii.vercel.app/api/task', {name,description})
       
-
+      console.log('values:', values);
     }
 
   return (
