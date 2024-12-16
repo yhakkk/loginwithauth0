@@ -9,10 +9,7 @@ const LoginPage = () =>{
     return(
         <>
         <LoginButton />
-        <h1>hola</h1>
-        <h1>hola</h1>
-        <h1>hola</h1>
-        <h1>hola</h1>
+        <h2>LOGIN</h2>
         </>
     )
 }
